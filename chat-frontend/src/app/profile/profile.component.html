@@ -1,0 +1,18 @@
+<mat-card>
+  <mat-card-title>Set Your Profile</mat-card-title>
+  <mat-card-content>
+    <form>
+      <mat-form-field>
+        <mat-label>Nickname</mat-label>
+        <input matInput [(ngModel)]="profile.nickname" name="nickname" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Full Name</mat-label>
+        <input matInput [(ngModel)]="profile.fullname" name="fullname" required>
+      </mat-form-field>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="setProfile()">Set Profile</button>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
+</mat-card>

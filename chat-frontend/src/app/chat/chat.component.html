@@ -1,0 +1,40 @@
+<div class="chat-container">
+  <mat-card>
+    <mat-card-title>Chat Room</mat-card-title>
+    <mat-card-content>
+      <div class="user-profile">
+        <p><strong>Nickname:</strong> {{profile.nickname}}</p>
+        <p><strong>Full Name:</strong> {{profile.fullname}}</p>
+      </div>
+      <div class="connected-users">
+        <h3>Connected Users</h3>
+        <ul>
+          <li *ngFor="let user of users">{{ user.nickname }} ({{ user.fullname }})</li>
+        </ul>
+      </div>
+      <div class="messages">
+        <div *ngFor="let msg of messages" [ngClass]="{
+          'my-message': msg.sender === profile.nickname,
+          'other-message': msg.sender !== profile.nickname && msg.type !== 'system',
+          'system-message': msg.type === 'system'
+        }">
+          <span *ngIf="msg.sender !== 'system'" class="sender">{{ msg.sender }}</span>
+          {{ msg.text }}
+        </div>
+      </div>
+      <div [ngClass]="{'disabled': isKicked}">
+        <mat-form-field>
+          <input matInput [(ngModel)]="message" placeholder="Type your message" [disabled]="isKicked">
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="sendMessage()" [disabled]="isKicked">Send</button>
+        <mat-form-field>
+          <input matInput [(ngModel)]="nicknameToKick" placeholder="Kick user by nickname" [disabled]="isKicked">
+        </mat-form-field>
+        <button mat-raised-button color="warn" (click)="kickUser(nicknameToKick)" [disabled]="isKicked">Kick</button>
+      </div>
+      <div *ngIf="isKicked" class="kicked-message">
+        <p>{{kickedMessage}}</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
